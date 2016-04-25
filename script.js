@@ -28,6 +28,8 @@ require([
     console.log(mp);
     //display mouse coordinates
     dom.byId("info").innerHTML = mp.x.toFixed(3) + ", " + mp.y.toFixed(3);
+    var info = dom.byId("info");
+    info.className += " active-latlong";
   }
 
   // Set home button to recenter to GA
@@ -51,3 +53,9 @@ require([
   streets.startup();
 
 });
+
+var infoSpan = document.getElementById('info');
+infoSpan.addEventListener("click", function (){
+  this.className = "";
+  this.innerHTML = "";
+})

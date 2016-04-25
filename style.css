@@ -3,3 +3,28 @@ html, body, #map {
   margin: 0;
   height: 100%;
 }
+
+h1 {
+  text-align: center;
+}
+
+#map {
+  width: 85%;
+}
+
+#SatelliteToggle, #StreetToggle {
+  width: 80px;
+  position: absolute;
+  z-index: 50;
+  margin: 1%;
+}
+
+#SatelliteToggle {
+  top: 5%;
+  right: 0px;
+}
+
+#StreetToggle {
+  top: 5%;
+  right: 80px;
+}

@@ -1,14 +1,30 @@
 console.log('map');
-var map;
+require([
+  "esri/map",
+  "esri/dijit/BasemapToggle",
+  "dojo/domReady!"
+], function(
+  Map, BasemapToggle
+)  {
 
-require(["esri/map",
-"dojo/domReady!"],
-function(Map) {
   map = new Map("map", {
-    basemap: "topo",
-    center: [-77.0340283,38.9048728], // longitude, latitude
-    zoom: 13
+    center: [-77.0340283,38.9048728],
+    zoom: 16,
+    basemap: "topo"
   });
+
+  var satellite = new BasemapToggle({
+    map: map,
+    basemap: "satellite"
+  }, "SatelliteToggle");
+  satellite.startup();
+
+  var streets = new BasemapToggle({
+    map: map,
+    basemap: "streets"
+  }, "StreetToggle");
+  streets.startup();
+
 });
 
 $(document).ready(function (){

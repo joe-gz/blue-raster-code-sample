@@ -1,12 +1,13 @@
 console.log('map');
 require([
   "esri/map",
+  "esri/dijit/HomeButton",
   "esri/geometry/webMercatorUtils",
   "esri/dijit/BasemapToggle",
   "dojo/dom",
   "dojo/domReady!"
 ], function(
-  Map, webMercatorUtils, BasemapToggle, dom
+  Map, HomeButton, webMercatorUtils, BasemapToggle, dom
 )  {
 
   map = new Map("map", {
@@ -27,14 +28,20 @@ require([
     dom.byId("info").innerHTML = mp.x.toFixed(3) + ", " + mp.y.toFixed(3);
   }
 
-// Set satellite option for toggle
+  // Set home button to recenter to GA
+  var home = new HomeButton({
+    map: map
+  }, "HomeButton");
+  home.startup();
+
+  // Set satellite option for toggle
   var satellite = new BasemapToggle({
     map: map,
     basemap: "satellite"
   }, "SatelliteToggle");
   satellite.startup();
 
-// Set streets option for toggle
+  // Set streets option for toggle
   var streets = new BasemapToggle({
     map: map,
     basemap: "streets"

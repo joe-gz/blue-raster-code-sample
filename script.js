@@ -11,6 +11,7 @@ require([
 )  {
 
   map = new Map("map", {
+    // longitude, latitude
     center: [-77.0340283,38.9048728],
     zoom: 16,
     basemap: "topo"
@@ -24,6 +25,7 @@ require([
   function showCoordinates(evt) {
     //the map is in web mercator but display coordinates in geographic (lat, long)
     var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+    console.log(mp);
     //display mouse coordinates
     dom.byId("info").innerHTML = mp.x.toFixed(3) + ", " + mp.y.toFixed(3);
   }

@@ -6,11 +6,17 @@ html, body, #map {
 
 h1 {
   text-align: center;
+  margin-bottom: 2%;
 }
 
 #map {
-  width: 85%;
+  width: 80%;
+  height: 80%;
+  margin-left: 5%;
+  border-radius: 1em;
+  margin: 0 auto;
 }
+
 
 #SatelliteToggle, #StreetToggle {
   width: 80px;
@@ -20,11 +26,16 @@ h1 {
 }
 
 #SatelliteToggle {
-  top: 5%;
+  top: 10%;
   right: 0px;
 }
 
 #StreetToggle {
-  top: 5%;
-  right: 80px;
+  top: 10%;
+  margin-top: 90px;
+  right: 0px;
+}
+
+#info {
+
 }

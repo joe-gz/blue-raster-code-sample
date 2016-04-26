@@ -37,24 +37,26 @@ h1 {
   width: 100%;
   height: 85%;
   position: relative;
+  margin: 0 auto;
 }
 
-#info {
-  left: 0;
-  top:5%;
+.lat-long {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
   position: absolute;
-  margin-left: 45%;
+  top: 0;
+  z-index: 9999;
 }
 
 .active-latlong {
+  display: inline-block;
   margin-top: 1%;
-  display: block;
   padding: .5em;
   z-index: 50;
   background: #d62d34;
   color: #E5E5E5;
   border-radius: 1em;
-  text-align: center;
 }
 
 .HomeButton {

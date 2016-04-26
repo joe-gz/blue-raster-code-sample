@@ -10,10 +10,16 @@ require([
   "dojo/_base/array",
   "dojo/dom-style",
   "dojox/widget/ColorPicker",
+  "esri/dijit/Search",
+  "esri/geometry/Extent",
+  "esri/geometry/screenUtils",
+  "dojo/dom-construct",
+  "dojo/query",
+  "dojo/_base/Color",
   "dojo/dom",
   "dojo/domReady!"
 ], function(
-  Map, HomeButton, webMercatorUtils, BasemapToggle, Point, SimpleMarkerSymbol, Graphic, arrayUtils, domStyle, ColorPicker, dom
+  Map, HomeButton, webMercatorUtils, BasemapToggle, Point, SimpleMarkerSymbol, Graphic,arrayUtils, domStyle, ColorPicker, Search, Extent, screenUtils, domConstruct, query, Color, dom
 ){
 
   map = new Map("map", {
@@ -22,6 +28,7 @@ require([
     zoom: 16,
     basemap: "topo"
   });
+  window.map;
 
   map.on("load", function() {
     //after map loads, connect to listen to mouse click
@@ -68,6 +75,7 @@ require([
     // loop through any points specified and add graphic
     arrayUtils.forEach(points, function(point) {
       var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
+      graphic.setAttributes({"name":"smiley_face"})
       map.graphics.add(graphic);
     });
   }
@@ -80,10 +88,46 @@ require([
     return markerSymbol;
   }
 
-});
+  var search = new Search({
+    map: map,
+  }, dom.byId("search"));
+  search.startup();
 
-var infoSpan = document.getElementById('info');
-infoSpan.addEventListener("click", function (){
-  this.className = "";
-  this.innerHTML = "";
-})
+  search.on("select-result", showLocation);
+  search.on("clear-search", removeSpotlight);
+
+  function showLocation(e) {
+    var graphics = map.graphics.graphics
+    for (var i = 0; i < graphics.length; i++) {
+      if (!graphics[i].attributes.hasOwnProperty("name")){
+        map.graphics.remove(graphics[i])
+      }
+    }
+    // map.graphics.clear();
+    console.log(map.graphics.graphics);
+    // returns x,y coordinates of search
+    var point = e.result.feature.geometry;
+    // returns highlighting box that lands on search
+    var symbol = new SimpleMarkerSymbol().setStyle(
+      SimpleMarkerSymbol.STYLE_SQUARE).setColor(
+        new Color([255,0,0,0.5])
+      );
+      var graphic = new Graphic(point, symbol);
+      map.graphics.add(graphic);
+
+      map.infoWindow.setTitle("Search Result");
+      map.infoWindow.setContent(e.result.name);
+      map.infoWindow.show(e.result.feature.geometry);
+    }
+
+    function removeSpotlight() {
+      map.infoWindow.hide();
+      map.graphics.clear();
+    }
+  });
+
+  var infoSpan = document.getElementById('info');
+  infoSpan.addEventListener("click", function (){
+    this.className = "";
+    this.innerHTML = "";
+  })

@@ -27,7 +27,7 @@ require([
     var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
     console.log(mp);
     //display mouse coordinates
-    dom.byId("info").innerHTML = mp.x.toFixed(3) + ", " + mp.y.toFixed(3);
+    dom.byId("info").innerHTML = "Longitude: " + mp.x.toFixed(3) + ", " + "Latitude: " + mp.y.toFixed(3);
     var info = dom.byId("info");
     info.className += " active-latlong";
   }

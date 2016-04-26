@@ -41,7 +41,7 @@ h1 {
 
 #info {
   left: 0;
-  top:10%;
+  top:5%;
   position: absolute;
   margin-left: 45%;
 }
@@ -54,6 +54,7 @@ h1 {
   background: #d62d34;
   color: #E5E5E5;
   border-radius: 1em;
+  text-align: center;
 }
 
 .HomeButton {

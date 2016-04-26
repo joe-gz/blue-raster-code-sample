@@ -4,19 +4,10 @@ require([
   "esri/dijit/HomeButton",
   "esri/geometry/webMercatorUtils",
   "esri/dijit/BasemapToggle",
-  "esri/dijit/Search",
-  "esri/geometry/Extent",
-  "esri/graphic",
-  "esri/symbols/SimpleMarkerSymbol",
-  "esri/geometry/screenUtils",
-  "dojo/dom",
-  "dojo/dom-construct",
-  "dojo/query",
-  "dojo/_base/Color",
   "dojo/dom",
   "dojo/domReady!"
 ], function(
-  Map, HomeButton, webMercatorUtils, BasemapToggle, Search, Extent, Graphic, SimpleMarkerSymbol, screenUtils, dom, domConstruct, query, Color
+  Map, HomeButton, webMercatorUtils, BasemapToggle, dom
 )  {
 
   map = new Map("map", {

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Code Sample</title>
+  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
   <link rel="stylesheet" href="https://js.arcgis.com/3.16/dijit/themes/claro/claro.css">
   <script src="https://js.arcgis.com/3.16/"></script>
@@ -11,11 +12,14 @@
 </head>
 <body class="claro">
   <h1>Blue Raster Code Sample</h1>
+  <div id="search"></div>
   <div id = "map">
     <div id="HomeButton"></div>
     <span id="info"></span>
-    <div id="SatelliteToggle"></div>
-    <div id="StreetToggle"></div>
+    <div class="toggleDiv">
+      <div id="SatelliteToggle"></div>
+      <div id="StreetToggle"></div>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>

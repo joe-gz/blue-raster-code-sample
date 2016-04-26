@@ -66,18 +66,14 @@ require([
   }, dom.byId("search"));
   search.startup();
 
-  map.on("load", enableSpotlight);
   search.on("select-result", showLocation);
   search.on("clear-search", removeSpotlight);
 
-  function enableSpotlight() {
-    var html = "<div id='spotlight' class='spotlight'></div>";
-    domConstruct.place(html, dom.byId("map_container"), "first");
-  }
-
   function showLocation(e) {
     map.graphics.clear();
+  // returns x,y coordinates of search
     var point = e.result.feature.geometry;
+  // returns highlighting box that lands on search
     var symbol = new SimpleMarkerSymbol().setStyle(
       SimpleMarkerSymbol.STYLE_SQUARE).setColor(
         new Color([255,0,0,0.5])

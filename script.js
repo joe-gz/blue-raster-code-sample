@@ -4,10 +4,19 @@ require([
   "esri/dijit/HomeButton",
   "esri/geometry/webMercatorUtils",
   "esri/dijit/BasemapToggle",
+  "esri/dijit/Search",
+  "esri/geometry/Extent",
+  "esri/graphic",
+  "esri/symbols/SimpleMarkerSymbol",
+  "esri/geometry/screenUtils",
+  "dojo/dom",
+  "dojo/dom-construct",
+  "dojo/query",
+  "dojo/_base/Color",
   "dojo/dom",
   "dojo/domReady!"
 ], function(
-  Map, HomeButton, webMercatorUtils, BasemapToggle, dom
+  Map, HomeButton, webMercatorUtils, BasemapToggle, Search, Extent, Graphic, SimpleMarkerSymbol, screenUtils, dom, domConstruct, query, Color
 )  {
 
   map = new Map("map", {
@@ -52,10 +61,44 @@ require([
   }, "StreetToggle");
   streets.startup();
 
-});
+  var search = new Search({
+    map: map,
+  }, dom.byId("search"));
+  search.startup();
 
-var infoSpan = document.getElementById('info');
-infoSpan.addEventListener("click", function (){
-  this.className = "";
-  this.innerHTML = "";
-})
+  map.on("load", enableSpotlight);
+  search.on("select-result", showLocation);
+  search.on("clear-search", removeSpotlight);
+
+  function enableSpotlight() {
+    var html = "<div id='spotlight' class='spotlight'></div>";
+    domConstruct.place(html, dom.byId("map_container"), "first");
+  }
+
+  function showLocation(e) {
+    map.graphics.clear();
+    var point = e.result.feature.geometry;
+    var symbol = new SimpleMarkerSymbol().setStyle(
+      SimpleMarkerSymbol.STYLE_SQUARE).setColor(
+        new Color([255,0,0,0.5])
+      );
+      var graphic = new Graphic(point, symbol);
+      map.graphics.add(graphic);
+
+      map.infoWindow.setTitle("Search Result");
+      map.infoWindow.setContent(e.result.name);
+      map.infoWindow.show(e.result.feature.geometry);
+    }
+
+    function removeSpotlight() {
+      map.infoWindow.hide();
+      map.graphics.clear();
+    }
+
+  });
+
+  var infoSpan = document.getElementById('info');
+  infoSpan.addEventListener("click", function (){
+    this.className = "";
+    this.innerHTML = "";
+  })
